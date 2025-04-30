@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./nvidia.nix
+	./nvidia.nix
     ];
 
   # Bootloader.
@@ -23,7 +23,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  services.connman.enable = true;
 
   # Set your time zone.
   time.timeZone = "Asia/Baku";
@@ -32,29 +32,31 @@
   i18n.defaultLocale = "ru_RU.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "az_AZ";
-    LC_IDENTIFICATION = "az_AZ";
-    LC_MEASUREMENT = "az_AZ";
-    LC_MONETARY = "az_AZ";
-    LC_NAME = "az_AZ";
-    LC_NUMERIC = "az_AZ";
-    LC_PAPER = "az_AZ";
-    LC_TELEPHONE = "az_AZ";
-    LC_TIME = "az_AZ";
+    LC_ADDRESS = "ru_RU.UTF-8";
+    LC_IDENTIFICATION = "ru_RU.UTF-8";
+    LC_MEASUREMENT = "ru_RU.UTF-8";
+    LC_MONETARY = "ru_RU.UTF-8";
+    LC_NAME = "ru_RU.UTF-8";
+    LC_NUMERIC = "ru_RU.UTF-8";
+    LC_PAPER = "ru_RU.UTF-8";
+    LC_TELEPHONE = "ru_RU.UTF-8";
+    LC_TIME = "ru_RU.UTF-8";
   };
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the Pantheon Desktop Environment.
-    #services.xserver.displayManager.gdm.enable = true;
-  #services.xserver.desktopManager.gnome.enable = true;
+  # Enable the Enlightenment Desktop Environment.
   services.xserver.displayManager.lightdm.enable = true;
-  services.xserver.desktopManager.pantheon.enable = true;
+  services.xserver.desktopManager.xfce.enable = true;
+  services.xserver.displayManager.defaultSession = "xfce";
+
+  # Enable acpid
+  services.acpid.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "ru";
+    layout = "us";
     variant = "";
   };
 
@@ -106,7 +108,6 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
   ];
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -134,5 +135,6 @@ nix.settings.experimental-features = [ "nix-command" "flakes" ];
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.11"; # Did you read the comment?
+ nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
 }
